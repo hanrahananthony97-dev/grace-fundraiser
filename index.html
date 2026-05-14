@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Clare Pony Club – Grace Murphy Australian Exchange Fundraiser</title>
+<title>Clare Pony Club – Horse Path Lottery Fundraiser</title>
 
 <style>
   :root{
@@ -20,8 +20,20 @@
   body{
     font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
     margin:0;
-    background:#f7f7f7;
+    background:url("grace%20teth.jpg") center/cover no-repeat fixed;
+    background-color:#f7f7f7;
     color:#222;
+    position:relative;
+  }
+
+  /* Soft overlay for readability */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:rgba(255,255,255,0.65);
+    pointer-events:none;
+    z-index:-1;
   }
 
   header{
@@ -159,7 +171,7 @@
 <header>
   <img src="logo.png" alt="Clare Pony Club Logo" />
   <h1>Clare Pony Club</h1>
-  <h2>Grace Murphy – Irish Squad Exchange to Australia Fundraiser</h2>
+  <h2>Horse Path Lottery – Supporting Grace Murphy’s Australian Exchange</h2>
 </header>
 
 <div class="container">
