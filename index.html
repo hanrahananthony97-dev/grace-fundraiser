@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Clare Pony Club – Grace Murphy Australian Exchange Fundraiser</title>
+
+<style>
+  :root{
+    --saffron:#f4c430;
+    --deep-blue:#003399;
+    --grid-gap:6px;
+    --square-size:60px;
+    --sold-color:#d9eafc;
+    --available-color:#fff;
+    --border:#ccc;
+    --accent:var(--deep-blue);
+  }
+
+  body{
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+    margin:0;
+    background:#f7f7f7;
+    color:#222;
+  }
+
+  header{
+    background:var(--deep-blue);
+    color:#fff;
+    padding:20px 12px;
+    text-align:center;
+    border-bottom:8px solid var(--saffron);
+  }
+
+  header img{
+    max-width:120px;
+    margin-bottom:10px;
+  }
+
+  h1{margin:0;font-size:1.7rem;font-weight:700;}
+  h2{margin-top:0.4rem;font-size:1.1rem;font-weight:500;}
+
+  .container{
+    max-width:1100px;
+    margin:20px auto;
+    padding:0 16px;
+  }
+
+  .panel{
+    background:#fff;
+    padding:16px;
+    border-radius:8px;
+    margin-bottom:20px;
+    border:1px solid #ddd;
+  }
+
+  .grid-wrap{
+    display:grid;
+    gap:var(--grid-gap);
+    justify-content:center;
+    margin-top:12px;
+  }
+
+  .square{
+    width:var(--square-size);
+    height:var(--square-size);
+    border:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:var(--available-color);
+    cursor:pointer;
+    user-select:none;
+    font-weight:600;
+    padding:4px;
+    box-sizing:border-box;
+  }
+
+  .square.sold{
+    background:var(--sold-color);
+    color:#003366;
+  }
+
+  .square .num{font-size:0.85rem;}
+  .square .name{
+    font-size:0.6rem;
+    margin-top:2px;
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+
+  .stats{
+    font-size:1rem;
+    margin-bottom:10px;
+    font-weight:600;
+  }
+
+  button{
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    padding:10px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:0.9rem;
+  }
+
+  button.secondary{
+    background:#666;
+  }
+
+  .btn-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+
+  /* Modal */
+  .modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,0.45);
+    z-index:1000;
+  }
+
+  .modal.open{display:flex;}
+
+  .modal-card{
+    background:#fff;
+    padding:18px;
+    border-radius:8px;
+    width:320px;
+    max-width:92%;
+  }
+
+  label{display:block;font-size:0.85rem;margin-top:8px;}
+  input[type="text"]{
+    width:100%;
+    padding:8px;
+    margin-top:6px;
+    box-sizing:border-box;
+  }
+
+  @media(max-width:700px){
+    :root{--square-size:44px;}
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="logo.png" alt="Clare Pony Club Logo" />
+  <h1>Clare Pony Club</h1>
+  <h2>Grace Murphy – Irish Squad Exchange to Australia Fundraiser</h2>
+</header>
+
+<div class="container">
+
+  <div class="panel">
+    <h2>About the Fundraiser</h2>
+    <p>
+      We are raising funds to support <strong>Grace Murphy</strong> as she represents Ireland
+      in the prestigious <strong>Irish Squad Exchange to Australia</strong>.
+      Thank you for supporting Clare Pony Club and helping make this opportunity possible.
+    </p>
+    <p><strong>Ticket Price:</strong> €10 per square</p>
+    <p><strong>Total Squares:</strong> 250</p>
+  </div>
+
+  <div class="panel">
+    <h2>Prizes</h2>
+    <ul>
+      <li>We are securing <strong>3 to 5 fantastic prizes</strong> — details will be announced shortly.</li>
+      <li>All buyers are entered into the prize draw.</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>How to Buy a Square</h2>
+    <ol>
+      <li>Click any available square below.</li>
+      <li>Enter your name and contact details.</li>
+      <li>Send €10 per square to the club’s payment link or treasurer.</li>
+      <li>Your square will be marked as SOLD.</li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <div class="stats" id="stats">0 sold • €0</div>
+    <div class="btn-row">
+      <button id="exportBtn">Export Buyer List (CSV)</button>
+      <button id="pickBtn" class="secondary">Pick Random Winner</button>
+    </div>
+    <div id="gridContainer" class="grid-wrap"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Terms & Conditions</h2>
+    <ul>
+      <li>All proceeds go to Clare Pony Club to support Grace Murphy’s exchange programme.</li>
+      <li>Buyers must provide valid contact details.</li>
+      <li>Winners will be contacted directly after the draw.</li>
+      <li>Squares are non‑refundable once purchased.</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- Buyer Modal -->
+<div id="modal" class="modal">
+  <div class="modal-card">
+    <h3 id="modalTitle">Buy Square</h3>
+    <div id="squareInfo"></div>
+    <label>Buyer name
+      <input id="buyerName" type="text" placeholder="Full name" />
+    </label>
+    <label>Contact (phone or email)
+      <input id="buyerContact" type="text" placeholder="Phone or email" />
+    </label>
+    <div class="btn-row" style="justify-content:flex-end;margin-top:12px;">
+      <button id="saveBtn">Save</button>
+      <button id="cancelBtn" class="secondary">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Winner Modal -->
+<div id="winnerModal" class="modal">
+  <div class="modal-card" style="text-align:center;">
+    <h2>Winner</h2>
+    <div id="winnerText" style="font-size:1.1rem;margin:12px 0;"></div>
+    <button id="closeWinner">Close</button>
+  </div>
+</div>
+
+<script>
+/* Configuration */
+const GRID_ROWS = 10;
+const GRID_COLS = 25;
+const TICKET_PRICE = 10;
+
+/* State */
+const totalSquares = GRID_ROWS * GRID_COLS;
+const squares = new Array(totalSquares).fill(null);
+
+/* DOM */
+const gridContainer = document.getElementById('gridContainer');
+const statsEl = document.getElementById('stats');
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modalTitle');
+const squareInfo = document.getElementById('squareInfo');
+const buyerName = document.getElementById('buyerName');
+const buyerContact = document.getElementById('buyerContact');
+const saveBtn = document.getElementById('saveBtn');
+const cancelBtn = document.getElementById('cancelBtn');
+const exportBtn = document.getElementById('exportBtn');
+const pickBtn = document.getElementById('pickBtn');
+const winnerModal = document.getElementById('winnerModal');
+const winnerText = document.getElementById('winnerText');
+const closeWinner = document.getElementById('closeWinner');
+
+/* Build grid */
+gridContainer.style.gridTemplateColumns = `repeat(${GRID_COLS}, auto)`;
+for(let i=0;i<totalSquares;i++){
+  const el = document.createElement('div');
+  el.className = 'square';
+  el.dataset.index = i;
+  el.innerHTML = `<div class="num">${i+1}</div><div class="name"></div>`;
+  el.addEventListener('click', ()=>onSquareClick(i));
+  gridContainer.appendChild(el);
+}
+
+/* Stats */
+function updateStats(){
+  const sold = squares.filter(s=>s && s.name).length;
+  const revenue = sold * TICKET_PRICE;
+  statsEl.textContent = `${sold} sold • €${revenue}`;
+}
+
+/* Modal */
+let activeIndex = null;
+function onSquareClick(index){
+  activeIndex = index;
+  const data = squares[index];
+  modalTitle.textContent = data ? `Square ${index+1} — Owned` : `Square ${index+1} — Available`;
+  squareInfo.innerHTML = data ? `<small>Current owner: ${data.name} • ${data.contact}</small>` : '';
+  buyerName.value = data ? data.name : '';
+  buyerContact.value = data ? data.contact : '';
+  modal.classList.add('open');
+}
+
+saveBtn.addEventListener('click', ()=>{
+  const name = buyerName.value.trim();
+  const contact = buyerContact.value.trim();
+  if(!name){ alert('Please enter buyer name'); return; }
+  squares[activeIndex] = {name, contact};
+  renderSquare(activeIndex);
+  modal.classList.remove('open');
+  updateStats();
+});
+
+cancelBtn.addEventListener('click', ()=>modal.classList.remove('open'));
+
+function renderSquare(i){
+  const el = gridContainer.querySelector(`.square[data-index="${i}"]`);
+  const data = squares[i];
+  const nameEl = el.querySelector('.name');
+  if(data){
+    el.classList.add('sold');
+    nameEl.textContent = data.name;
+  } else {
+    el.classList.remove('sold');
+    nameEl.textContent = '';
+  }
+}
+
+/* Export CSV */
+exportBtn.addEventListener('click', ()=>{
+  const rows = [['Square','Buyer','Contact']];
+  squares.forEach((s,idx)=>{ if(s) rows.push([idx+1, s.name, s.contact]); });
+  if(rows.length===1){ alert('No sales yet'); return; }
+  const csv = rows.map(r=>r.join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'clare_pony_club_buyers.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+/* Winner Picker */
+pickBtn.addEventListener('click', ()=>{
+  const soldIndexes = squares.map((s,i)=>s ? i : -1).filter(i=>i>=0);
+  if(soldIndexes.length===0){ alert('No sold squares'); return; }
+  const winnerIndex = soldIndexes[Math.floor(Math.random()*soldIndexes.length)];
+  const data = squares[winnerIndex];
+  winnerText.innerHTML = `Square <strong>${winnerIndex+1}</strong><br>${data.name}<br>${data.contact}`;
+  winnerModal.classList.add('open');
+});
+
+closeWinner.addEventListener('click', ()=>winnerModal.classList.remove('open'));
+
+updateStats();
+</script>
+
+</body>
+</html>
