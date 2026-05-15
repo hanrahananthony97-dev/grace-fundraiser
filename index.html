@@ -546,14 +546,18 @@ function renderSquare(i) {
   const data = squares[i];
   const nameEl = el.querySelector('.name');
 
-  if (data) {
+  // A square is sold ONLY if it has a buyer name
+  const isSold = data && data.name && data.name.trim() !== "";
+
+  if (isSold) {
     el.classList.add('sold');
-    nameEl.textContent = "";   // no name shown
+    nameEl.textContent = "";   // hide name
   } else {
     el.classList.remove('sold');
     nameEl.textContent = "";
   }
 }
+
 
 
 /* LIVE FIREBASE SYNC */
@@ -647,11 +651,12 @@ adminReset.addEventListener('click', () => {
   if (!confirm("Are you sure you want to reset ALL squares?")) return;
 
   for (let i = 0; i < totalSquares; i++) {
-    squaresRef.child(String(i)).set({ adminKey: "HorsePathMasterKey" });
+    squaresRef.child(String(i)).remove();
   }
 
   alert("Grid reset complete");
 });
+
 
 /* ============================
    ZOOM SLIDER
