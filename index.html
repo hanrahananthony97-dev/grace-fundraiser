@@ -68,42 +68,124 @@
     border:1px solid #ddd;
   }
 
-  .grid-wrap{
-    display:grid;
-    gap:var(--grid-gap);
-    justify-content:center;
-    margin-top:12px;
+  /* FUNDRAISER BANNER */
+  .fundraiser-banner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #d0e8ff, #f0f8ff);
+    border: 3px solid #1e90ff;
+    border-radius: 12px;
+    margin: 20px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
 
-  .square{
-    width:var(--square-size);
-    height:var(--square-size);
-    border:1px solid var(--border);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    background:var(--available-color);
-    cursor:pointer;
-    user-select:none;
-    font-weight:600;
-    padding:4px;
-    box-sizing:border-box;
+  .fundraiser-photo-frame {
+    width: 160px;
+    height: 160px;
+    border: 4px solid #1e90ff;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .square.sold{
-    background:var(--sold-color);
-    color:#003366;
+  .fundraiser-photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  .square .num{font-size:0.85rem;}
-  .square .name{
-    font-size:0.6rem;
-    margin-top:2px;
-    max-width:100%;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+  .fundraiser-text {
+    flex: 1;
+  }
+
+  .fundraiser-text h2 {
+    margin: 0 0 10px;
+    font-size: 28px;
+    color: #1e90ff;
+    font-weight: bold;
+  }
+
+  .fundraiser-text p {
+    margin: 6px 0;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  /* GRID PANEL */
+  #gridContainer {
+    display: grid;
+    gap: 4px;
+    padding: 10px;
+    background: #f5faff;
+    border: 2px solid #1e90ff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform-origin: top left;
+    transition: transform 0.2s ease;
+  }
+
+  /* ZOOM SLIDER */
+  .zoom-control {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+  }
+
+  #zoomSlider {
+    width: 200px;
+  }
+
+  /* SQUARES */
+  .square {
+    width: 55px;
+    height: 55px;
+    background: white;
+    border: 2px solid #cfe3ff;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+    font-family: Arial, sans-serif;
+  }
+
+  .square .num {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1e90ff;
+  }
+
+  .square .name {
+    font-size: 11px;
+    color: #333;
+    margin-top: 2px;
+  }
+
+  .square:hover {
+    transform: scale(1.08);
+    border-color: #1e90ff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+
+  .square.sold {
+    background: linear-gradient(135deg, #d0e8ff, #f0f8ff);
+    border-color: #1e90ff;
+    cursor: not-allowed;
+    opacity: 0.85;
+  }
+
+  .square.sold:hover {
+    transform: none;
+    box-shadow: none;
   }
 
   .stats{
@@ -164,59 +246,6 @@
   #adminPanel .modal-card{
     width:360px;
   }
-
-  @media(max-width:700px){
-    :root{--square-size:44px;}
-
-    .fundraiser-banner {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
-  background: linear-gradient(135deg, #d0e8ff, #f0f8ff);
-  border: 3px solid #1e90ff;
-  border-radius: 12px;
-  margin: 20px 0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.fundraiser-photo-frame {
-  width: 160px;
-  height: 160px;
-  border: 4px solid #1e90ff;
-  border-radius: 10px;
-  overflow: hidden;
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.fundraiser-photo-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.fundraiser-text {
-  flex: 1;
-}
-
-.fundraiser-text h2 {
-  margin: 0 0 10px;
-  font-size: 28px;
-  color: #1e90ff;
-  font-weight: bold;
-}
-
-.fundraiser-text p {
-  margin: 6px 0;
-  font-size: 16px;
-  line-height: 1.4;
-}
-
-  }
-  
 </style>
 </head>
 
@@ -230,24 +259,24 @@
 
 <div class="container">
 
- <div class="fundraiser-banner">
-  <div class="fundraiser-photo-frame">
-    <img src="grace-photo.jpg" alt="Grace Murphy">
-  </div>
+  <!-- FUNDRAISER BANNER -->
+  <div class="fundraiser-banner">
+    <div class="fundraiser-photo-frame">
+      <img src="grace-photo.jpg" alt="Grace Murphy">
+    </div>
 
-  <div class="fundraiser-text">
-    <h2>Support Grace</h2>
-    <p>
-      We are raising funds to support <strong>Grace Murphy</strong> as she represents our club as part of the 
-      <strong>Irish Pony Club Tetrathlon Squad</strong> in the prestigious 
-      <strong>Irish Squad Exchange to Australia</strong>.
-    </p>
-    <p>
-      Thank you for supporting <strong>Clare Pony Club</strong> and helping make this opportunity possible.
-    </p>
+    <div class="fundraiser-text">
+      <h2>Support Grace</h2>
+      <p>
+        We are raising funds to support <strong>Grace Murphy</strong> as she represents our club as part of the 
+        <strong>Irish Pony Club Tetrathlon Squad</strong> in the prestigious 
+        <strong>Irish Squad Exchange to Australia</strong>.
+      </p>
+      <p>
+        Thank you for supporting <strong>Clare Pony Club</strong> and helping make this opportunity possible.
+      </p>
+    </div>
   </div>
-</div>
-
 
   <div class="panel">
     <h2>Prizes</h2>
@@ -269,9 +298,13 @@
 
   <div class="panel">
     <div class="stats" id="stats">0 sold • €0</div>
-    <div class="btn-row">
-    
+
+    <!-- ZOOM SLIDER -->
+    <div class="zoom-control">
+      <label>Zoom:</label>
+      <input type="range" id="zoomSlider" min="50" max="150" value="100">
     </div>
+
     <div id="gridContainer" class="grid-wrap"></div>
   </div>
 
@@ -334,14 +367,14 @@
     <div class="btn-row" style="margin-top:12px;">
       <button id="adminSave">Apply Change</button>
       <button id="adminReset" class="secondary">Reset Entire Grid</button>
-        <button id="exportBtn">Export Buyer List (CSV)</button>
+      <button id="exportBtn">Export Buyer List (CSV)</button>
       <button id="pickBtn" class="secondary">Pick Random Winner</button>
       <button id="adminClose" class="secondary">Close</button>
     </div>
   </div>
 </div>
 
-<!-- FIREBASE COMPAT SDK -->
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
@@ -390,9 +423,11 @@ const pickBtn = document.getElementById('pickBtn');
 const winnerModal = document.getElementById('winnerModal');
 const winnerText = document.getElementById('winnerText');
 const closeWinner = document.getElementById('closeWinner');
+const zoomSlider = document.getElementById('zoomSlider');
 
 gridContainer.style.gridTemplateColumns = `repeat(${GRID_COLS}, auto)`;
 
+/* Build grid */
 for (let i = 0; i < totalSquares; i++) {
   const el = document.createElement('div');
   el.className = 'square';
@@ -418,7 +453,6 @@ function onSquareClick(index) {
     return;
   }
 
-  // Otherwise open modal normally
   activeIndex = index;
   modalTitle.textContent = data ? `Square ${index + 1} — Owned` : `Square ${index + 1} — Available`;
   squareInfo.innerHTML = data ? `<small>Current owner: ${data.name} • ${data.contact}</small>` : '';
@@ -427,7 +461,7 @@ function onSquareClick(index) {
   modal.classList.add('open');
 }
 
-
+/* SAVE BUYER */
 saveBtn.addEventListener('click', () => {
   const name = buyerName.value.trim();
   const contact = buyerContact.value.trim();
@@ -449,6 +483,7 @@ saveBtn.addEventListener('click', () => {
 
 cancelBtn.addEventListener('click', () => modal.classList.remove('open'));
 
+/* RENDER SQUARE */
 function renderSquare(i) {
   const el = gridContainer.querySelector(`.square[data-index="${i}"]`);
   const data = squares[i];
@@ -462,6 +497,7 @@ function renderSquare(i) {
   }
 }
 
+/* LIVE FIREBASE SYNC */
 squaresRef.on('value', snapshot => {
   const val = snapshot.val() || {};
   squares = new Array(totalSquares).fill(null);
@@ -475,6 +511,7 @@ squaresRef.on('value', snapshot => {
   updateStats();
 });
 
+/* EXPORT CSV */
 exportBtn.addEventListener('click', () => {
   const rows = [['Square', 'Buyer', 'Contact']];
   squares.forEach((s, idx) => { if (s) rows.push([idx + 1, s.name, s.contact]); });
@@ -489,12 +526,14 @@ exportBtn.addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
+/* PICK RANDOM WINNER */
 pickBtn.addEventListener('click', () => {
   const soldIndexes = squares.map((s, i) => s ? i : -1).filter(i => i >= 0);
   if (soldIndexes.length === 0) { alert('No sold squares'); return; }
   const winnerIndex = soldIndexes[Math.floor(Math.random() * soldIndexes.length)];
   const data = squares[winnerIndex];
-  winnerText.innerHTML = `Square <strong>${winnerIndex + 1}</strong><br>${data.name}<br>${data.contact}`;
+  winnerText.innerHTML =
+    `Square <strong>${winnerIndex + 1}</strong><br>${data.name}<br>${data.contact}`;
   winnerModal.classList.add('open');
 });
 
@@ -553,6 +592,15 @@ adminReset.addEventListener('click', () => {
   }
 
   alert("Grid reset complete");
+});
+
+/* ============================
+   ZOOM SLIDER
+   ============================ */
+
+zoomSlider.addEventListener('input', () => {
+  const scale = zoomSlider.value / 100;
+  gridContainer.style.transform = `scale(${scale})`;
 });
 
 updateStats();
