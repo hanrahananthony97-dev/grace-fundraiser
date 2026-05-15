@@ -260,74 +260,7 @@
     <button id="closeWinner">Close</button>
   </div>
 </div>
-/* ============================
-   ADMIN PANEL
-   ============================ */
 
-// Open admin panel with CTRL + SHIFT + A
-document.addEventListener('keydown', (e) => {
-  if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-    document.getElementById('adminPanel').classList.add('open');
-  }
-});
-
-const adminPanel = document.getElementById('adminPanel');
-const adminSquare = document.getElementById('adminSquare');
-const adminName = document.getElementById('adminName');
-const adminContact = document.getElementById('adminContact');
-const adminSave = document.getElementById('adminSave');
-const adminReset = document.getElementById('adminReset');
-const adminClose = document.getElementById('adminClose');
-
-// Close admin panel
-adminClose.addEventListener('click', () => {
-  adminPanel.classList.remove('open');
-});
-
-// Apply admin change
-adminSave.addEventListener('click', () => {
-  const sq = parseInt(adminSquare.value, 10) - 1;
-
-  if (isNaN(sq) || sq < 0 || sq >= totalSquares) {
-    alert("Invalid square number");
-    return;
-  }
-
-  const name = adminName.value.trim();
-  const contact = adminContact.value.trim();
-
-  let payload;
-
-  if (name === "" && contact === "") {
-    // Clear square
-    payload = {
-      adminKey: "HorsePathMasterKey"
-    };
-  } else {
-    // Edit square
-    payload = {
-      name,
-      contact,
-      adminKey: "HorsePathMasterKey"
-    };
-  }
-
-  squaresRef.child(String(sq)).set(payload);
-  alert("Admin update applied");
-});
-
-// Reset entire grid
-adminReset.addEventListener('click', () => {
-  if (!confirm("Are you sure you want to reset ALL squares?")) return;
-
-  for (let i = 0; i < totalSquares; i++) {
-    squaresRef.child(String(i)).set({
-      adminKey: "HorsePathMasterKey"
-    });
-  }
-
-  alert("Grid reset complete");
-});
 
   // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
