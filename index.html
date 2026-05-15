@@ -303,6 +303,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+  
 const db = firebase.database();
 const squaresRef = db.ref("horsePathLottery/squares");
 
@@ -489,6 +490,5 @@ adminReset.addEventListener('click', () => {
 
 updateStats();
 </script>
-
 </body>
 </html>
