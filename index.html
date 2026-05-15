@@ -24,7 +24,6 @@
     color:#222;
   }
 
-  /* HEADER WITH BACKGROUND IMAGE */
   header{
     background:url("grace%20teth.jpg") center/cover no-repeat;
     color:#fff;
@@ -134,7 +133,6 @@
     margin-top:10px;
   }
 
-  /* Modal */
   .modal{
     position:fixed;
     inset:0;
@@ -365,7 +363,16 @@ function onSquareClick(index) {
 saveBtn.addEventListener('click', () => {
   const name = buyerName.value.trim();
   const contact = buyerContact.value.trim();
-  if (!name) { alert('Please enter buyer name'); return; }
+
+  if (!name) {
+    alert('Please enter buyer name');
+    return;
+  }
+
+  if (!contact) {
+    alert('Please enter contact details');
+    return;
+  }
 
   const entry = { name, contact };
   squaresRef.child(String(activeIndex)).set(entry);
