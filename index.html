@@ -24,6 +24,10 @@
     color:#222;
   }
 
+  #adminPanel .modal-card {
+  width: 360px;
+}
+
   /* HEADER WITH BACKGROUND IMAGE */
   header{
     background:url("grace%20teth.jpg") center/cover no-repeat;
@@ -256,7 +260,104 @@
     <button id="closeWinner">Close</button>
   </div>
 </div>
+/* ============================
+   ADMIN PANEL
+   ============================ */
 
+// Open admin panel with CTRL + SHIFT + A
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+    document.getElementById('adminPanel').classList.add('open');
+  }
+});
+
+const adminPanel = document.getElementById('adminPanel');
+const adminSquare = document.getElementById('adminSquare');
+const adminName = document.getElementById('adminName');
+const adminContact = document.getElementById('adminContact');
+const adminSave = document.getElementById('adminSave');
+const adminReset = document.getElementById('adminReset');
+const adminClose = document.getElementById('adminClose');
+
+// Close admin panel
+adminClose.addEventListener('click', () => {
+  adminPanel.classList.remove('open');
+});
+
+// Apply admin change
+adminSave.addEventListener('click', () => {
+  const sq = parseInt(adminSquare.value, 10) - 1;
+
+  if (isNaN(sq) || sq < 0 || sq >= totalSquares) {
+    alert("Invalid square number");
+    return;
+  }
+
+  const name = adminName.value.trim();
+  const contact = adminContact.value.trim();
+
+  let payload;
+
+  if (name === "" && contact === "") {
+    // Clear square
+    payload = {
+      adminKey: "HorsePathMasterKey"
+    };
+  } else {
+    // Edit square
+    payload = {
+      name,
+      contact,
+      adminKey: "HorsePathMasterKey"
+    };
+  }
+
+  squaresRef.child(String(sq)).set(payload);
+  alert("Admin update applied");
+});
+
+// Reset entire grid
+adminReset.addEventListener('click', () => {
+  if (!confirm("Are you sure you want to reset ALL squares?")) return;
+
+  for (let i = 0; i < totalSquares; i++) {
+    squaresRef.child(String(i)).set({
+      adminKey: "HorsePathMasterKey"
+    });
+  }
+
+  alert("Grid reset complete");
+});
+
+  // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<script>
+  // TODO:
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyA5ArKd4tYSDVPcq3tXifvi8VTBxMn_Oo0",
+  authDomain: "horse-path.firebaseapp.com",
+  databaseURL: "https://horse-path-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "horse-path",
+  storageBucket: "horse-path.firebasestorage.app",
+  messagingSenderId: "510723832095",
+  appId: "1:510723832095:web:b6c1748ed016ba8261982a"
+};
+
+// Initialize Firebase
+//const app = initializeApp(firebaseConfig);
+
+   firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+  const squaresRef = db.ref("horsePathLottery/squares");
+</script>
+  
 <script>
 /* Configuration */
 const GRID_ROWS = 10;
@@ -265,7 +366,7 @@ const TICKET_PRICE = 10;
 
 /* State */
 const totalSquares = GRID_ROWS * GRID_COLS;
-const squares = new Array(totalSquares).fill(null);
+let squares = new Array(totalSquares).fill(null);
 
 /* DOM */
 const gridContainer = document.getElementById('gridContainer');
@@ -285,51 +386,52 @@ const closeWinner = document.getElementById('closeWinner');
 
 /* Build grid */
 gridContainer.style.gridTemplateColumns = `repeat(${GRID_COLS}, auto)`;
-for(let i=0;i<totalSquares;i++){
+for (let i = 0; i < totalSquares; i++) {
   const el = document.createElement('div');
   el.className = 'square';
   el.dataset.index = i;
-  el.innerHTML = `<div class="num">${i+1}</div><div class="name"></div>`;
-  el.addEventListener('click', ()=>onSquareClick(i));
+  el.innerHTML = `<div class="num">${i + 1}</div><div class="name"></div>`;
+  el.addEventListener('click', () => onSquareClick(i));
   gridContainer.appendChild(el);
 }
 
 /* Stats */
-function updateStats(){
-  const sold = squares.filter(s=>s && s.name).length;
+function updateStats() {
+  const sold = squares.filter(s => s && s.name).length;
   const revenue = sold * TICKET_PRICE;
   statsEl.textContent = `${sold} sold • €${revenue}`;
 }
 
 /* Modal */
 let activeIndex = null;
-function onSquareClick(index){
+function onSquareClick(index) {
   activeIndex = index;
   const data = squares[index];
-  modalTitle.textContent = data ? `Square ${index+1} — Owned` : `Square ${index+1} — Available`;
+  modalTitle.textContent = data ? `Square ${index + 1} — Owned` : `Square ${index + 1} — Available`;
   squareInfo.innerHTML = data ? `<small>Current owner: ${data.name} • ${data.contact}</small>` : '';
   buyerName.value = data ? data.name : '';
   buyerContact.value = data ? data.contact : '';
   modal.classList.add('open');
 }
 
-saveBtn.addEventListener('click', ()=>{
+saveBtn.addEventListener('click', () => {
   const name = buyerName.value.trim();
   const contact = buyerContact.value.trim();
-  if(!name){ alert('Please enter buyer name'); return; }
-  squares[activeIndex] = {name, contact};
-  renderSquare(activeIndex);
+  if (!name) { alert('Please enter buyer name'); return; }
+
+  const entry = { name, contact };
+  // Save to Firebase at index
+  squaresRef.child(String(activeIndex)).set(entry);
   modal.classList.remove('open');
-  updateStats();
 });
 
-cancelBtn.addEventListener('click', ()=>modal.classList.remove('open'));
+cancelBtn.addEventListener('click', () => modal.classList.remove('open'));
 
-function renderSquare(i){
+function renderSquare(i) {
   const el = gridContainer.querySelector(`.square[data-index="${i}"]`);
   const data = squares[i];
   const nameEl = el.querySelector('.name');
-  if(data){
+  if (data) {
     el.classList.add('sold');
     nameEl.textContent = data.name;
   } else {
@@ -338,13 +440,29 @@ function renderSquare(i){
   }
 }
 
+/* Listen for changes from Firebase (real‑time) */
+squaresRef.on('value', snapshot => {
+  const val = snapshot.val() || {};
+  squares = new Array(totalSquares).fill(null);
+  Object.keys(val).forEach(key => {
+    const idx = parseInt(key, 10);
+    if (!isNaN(idx) && idx >= 0 && idx < totalSquares) {
+      squares[idx] = val[key];
+    }
+  });
+  for (let i = 0; i < totalSquares; i++) {
+    renderSquare(i);
+  }
+  updateStats();
+});
+
 /* Export CSV */
-exportBtn.addEventListener('click', ()=>{
-  const rows = [['Square','Buyer','Contact']];
-  squares.forEach((s,idx)=>{ if(s) rows.push([idx+1, s.name, s.contact]); });
-  if(rows.length===1){ alert('No sales yet'); return; }
-  const csv = rows.map(r=>r.join(',')).join('\n');
-  const blob = new Blob([csv], {type:'text/csv'});
+exportBtn.addEventListener('click', () => {
+  const rows = [['Square', 'Buyer', 'Contact']];
+  squares.forEach((s, idx) => { if (s) rows.push([idx + 1, s.name, s.contact]); });
+  if (rows.length === 1) { alert('No sales yet'); return; }
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -354,19 +472,43 @@ exportBtn.addEventListener('click', ()=>{
 });
 
 /* Winner Picker */
-pickBtn.addEventListener('click', ()=>{
-  const soldIndexes = squares.map((s,i)=>s ? i : -1).filter(i=>i>=0);
-  if(soldIndexes.length===0){ alert('No sold squares'); return; }
-  const winnerIndex = soldIndexes[Math.floor(Math.random()*soldIndexes.length)];
+pickBtn.addEventListener('click', () => {
+  const soldIndexes = squares.map((s, i) => s ? i : -1).filter(i => i >= 0);
+  if (soldIndexes.length === 0) { alert('No sold squares'); return; }
+  const winnerIndex = soldIndexes[Math.floor(Math.random() * soldIndexes.length)];
   const data = squares[winnerIndex];
-  winnerText.innerHTML = `Square <strong>${winnerIndex+1}</strong><br>${data.name}<br>${data.contact}`;
+  winnerText.innerHTML = `Square <strong>${winnerIndex + 1}</strong><br>${data.name}<br>${data.contact}`;
   winnerModal.classList.add('open');
 });
 
-closeWinner.addEventListener('click', ()=>winnerModal.classList.remove('open'));
+closeWinner.addEventListener('click', () => winnerModal.classList.remove('open'));
 
 updateStats();
 </script>
+  <!-- ADMIN PANEL (hidden by default) -->
+<div id="adminPanel" class="modal">
+  <div class="modal-card">
+    <h2>Admin Panel</h2>
+
+    <label>Square number (1–250)
+      <input id="adminSquare" type="number" min="1" max="250">
+    </label>
+
+    <label>New buyer name (leave blank to clear)
+      <input id="adminName" type="text">
+    </label>
+
+    <label>New contact (leave blank to clear)
+      <input id="adminContact" type="text">
+    </label>
+
+    <div class="btn-row" style="margin-top:12px;">
+      <button id="adminSave">Apply Change</button>
+      <button id="adminReset" class="secondary">Reset Entire Grid</button>
+      <button id="adminClose" class="secondary">Close</button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
