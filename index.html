@@ -167,7 +167,56 @@
 
   @media(max-width:700px){
     :root{--square-size:44px;}
+
+    .fundraiser-banner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, #d0e8ff, #f0f8ff);
+  border: 3px solid #1e90ff;
+  border-radius: 12px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.fundraiser-photo-frame {
+  width: 160px;
+  height: 160px;
+  border: 4px solid #1e90ff;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fundraiser-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fundraiser-text {
+  flex: 1;
+}
+
+.fundraiser-text h2 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  color: #1e90ff;
+  font-weight: bold;
+}
+
+.fundraiser-text p {
+  margin: 6px 0;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
   }
+  
 </style>
 </head>
 
