@@ -608,9 +608,20 @@ closeWinner.addEventListener('click', () => winnerModal.classList.remove('open')
 
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-    document.getElementById('adminPanel').classList.add('open');
+
+    const pwd = prompt("Enter admin password:");
+
+    // Change this to whatever password you want
+    const correctPassword = "Grace2025";
+
+    if (pwd === correctPassword) {
+      document.getElementById('adminPanel').classList.add('open');
+    } else if (pwd !== null) {
+      alert("Incorrect password");
+    }
   }
 });
+
 
 const adminPanel = document.getElementById('adminPanel');
 const adminSquare = document.getElementById('adminSquare');
