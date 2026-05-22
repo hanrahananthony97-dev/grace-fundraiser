@@ -392,6 +392,21 @@
       <input id="buyerContact" type="text" placeholder="Phone or email" />
     </label>
     <div class="btn-row" style="justify-content:flex-end;margin-top:12px;">
+      <div style="margin-top:12px;">
+  <a id="paymentLink" 
+     href="https://pay.sumup.com/b2c/Q445J2E4" 
+     target="_blank"
+     style="color:#1e90ff; font-weight:bold; text-decoration:underline;">
+     Click here to pay €10
+  </a>
+  <div id="paymentConfirm" style="margin-top:8px;">
+    <label>
+      <input type="checkbox" id="paymentDone">
+      I have completed the payment
+    </label>
+  </div>
+</div>
+
       <button id="saveBtn">Save</button>
       <button id="cancelBtn" class="secondary">Cancel</button>
     </div>
@@ -477,6 +492,12 @@ const squareInfo = document.getElementById('squareInfo');
 const buyerName = document.getElementById('buyerName');
 const buyerContact = document.getElementById('buyerContact');
 const saveBtn = document.getElementById('saveBtn');
+  saveBtn.disabled = true;
+  const paymentDone = document.getElementById('paymentDone');
+paymentDone.addEventListener('change', () => {
+  saveBtn.disabled = !paymentDone.checked;
+});
+
 const cancelBtn = document.getElementById('cancelBtn');
 const exportBtn = document.getElementById('exportBtn');
 const pickBtn = document.getElementById('pickBtn');
@@ -518,11 +539,18 @@ function onSquareClick(index) {
   squareInfo.innerHTML = data ? `<small>Current owner: ${data.name} • ${data.contact}</small>` : '';
   buyerName.value = data ? data.name : '';
   buyerContact.value = data ? data.contact : '';
+  paymentDone.checked = false;
+saveBtn.disabled = true;
   modal.classList.add('open');
 }
 
 /* SAVE BUYER */
 saveBtn.addEventListener('click', () => {
+  if (!paymentDone.checked) {
+  alert("You must complete payment before saving this square.");
+  return;
+}
+
   const name = buyerName.value.trim();
   const contact = buyerContact.value.trim();
 
