@@ -129,7 +129,7 @@
     transition: transform 0.2s ease;
   }
 
-  /* LEGEND (fixed and placed correctly) */
+  /* LEGEND */
   .legend {
     display: flex;
     gap: 20px;
@@ -540,7 +540,7 @@ function onSquareClick(index) {
   modal.classList.add('open');
 }
 /* ============================
-   PAYMENT + TOKEN + REDIRECT
+   PAYMENT (NO REDIRECT VERSION)
    ============================ */
 
 function generateToken() {
@@ -548,31 +548,10 @@ function generateToken() {
 }
 
 function buildPaymentLink(token) {
-  const redirect = encodeURIComponent(
-    "https://hanrahananthony97-dev.github.io/grace-fundraiser/?paid=" + token
-  );
-
   return (
     "https://pay.sumup.com/b2c/Q445J2E4" +
-    "?token=" + token +
-    "&redirect_url=" + redirect
+    "?token=" + token
   );
-}
-
-/* Detect redirect return */
-const urlParams = new URLSearchParams(window.location.search);
-const paidToken = urlParams.get("paid");
-
-if (paidToken) {
-  // Auto‑unlock save button if token returned
-  const paymentDoneBox = document.getElementById("paymentDone");
-  if (paymentDoneBox) {
-    paymentDoneBox.checked = true;
-  }
-  const saveBtn = document.getElementById("saveBtn");
-  if (saveBtn) {
-    saveBtn.disabled = false;
-  }
 }
 
 /* ============================
