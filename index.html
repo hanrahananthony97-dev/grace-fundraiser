@@ -500,7 +500,7 @@ for (let i = 0; i < totalSquares; i++) {
 function updateStats() {
   const sold = squares.filter(s => s && s.name).length;
   const revenue = sold * TICKET_PRICE;
-  statsEl.textContent = `${sold} sold • €${revenue}`;
+  statsEl.textContent = `${sold} sold • `;
 }
 
 let activeIndex = null;
