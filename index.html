@@ -129,16 +129,49 @@
     transition: transform 0.2s ease;
   }
 
-  /* ZOOM SLIDER */
-  <div class="legend">
-  <div class="legend-item">
-    <div class="legend-box available"></div> Available
-  </div>
-  <div class="legend-item">
-    <div class="legend-box sold"></div> Sold
-  </div>
-</div>
+  /* LEGEND (fixed and placed correctly) */
+  .legend {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 12px;
+    align-items: center;
+    font-size: 15px;
+  }
 
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .legend-box {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 2px solid #1e90ff;
+  }
+
+  .legend-box.available {
+    background: white;
+  }
+
+  .legend-box.sold {
+    background: #ffdddd;
+    border-color: #cc0000;
+    position: relative;
+  }
+
+  .legend-box.sold::after {
+    content: "✖";
+    position: absolute;
+    font-size: 18px;
+    color: #cc0000;
+    font-weight: bold;
+    left: 3px;
+    top: -2px;
+  }
+
+  /* ZOOM SLIDER */
   .zoom-control {
     margin-bottom: 12px;
     display: flex;
@@ -185,22 +218,21 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   }
 
-.square.sold {
-  background: #ffdddd;          /* light red background */
-  border-color: #cc0000;        /* stronger red border */
-  position: relative;
-  cursor: not-allowed;
-  opacity: 1;
-}
+  .square.sold {
+    background: #ffdddd;
+    border-color: #cc0000;
+    position: relative;
+    cursor: not-allowed;
+    opacity: 1;
+  }
 
-.square.sold::after {
-  content: "✖";                 /* the X symbol */
-  position: absolute;
-  font-size: 32px;
-  color: #cc0000;
-  font-weight: bold;
-}
-
+  .square.sold::after {
+    content: "✖";
+    position: absolute;
+    font-size: 32px;
+    color: #cc0000;
+    font-weight: bold;
+  }
 
   .stats{
     font-size:1rem;
@@ -248,57 +280,6 @@
     width:320px;
     max-width:92%;
   }
-  .legend {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 12px;
-  align-items: center;
-  font-size: 15px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.legend-box {
-  width: 22px;
-  height: 22px;
-  border-radius: 4px;
-  border: 2px solid #1e90ff;
-}
-
-/* Available square */
-.legend-box.available {
-  background: white;
-}
-
-/* Sold square (matches your new sold style) */
-.legend-box.sold {
-  background: #ffdddd;
-  border-color: #cc0000;
-  position: relative;
-}
-
-.legend-box.sold::after {
-  content: "✖";
-  position: absolute;
-  font-size: 18px;
-  color: #cc0000;
-  font-weight: bold;
-  left: 3px;
-  top: -2px;
-}
-
-
-  label{display:block;font-size:0.85rem;margin-top:8px;}
-  input[type="text"], input[type="number"]{
-    width:100%;
-    padding:8px;
-    margin-top:6px;
-    box-sizing:border-box;
-  }
 
   #adminPanel .modal-card{
     width:360px;
@@ -335,13 +316,23 @@
     </div>
   </div>
 
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-box available"></div> Available
+    </div>
+    <div class="legend-item">
+      <div class="legend-box sold"></div> Sold
+    </div>
+  </div>
+
   <div class="panel">
     <h2>Prizes</h2>
     <ul>
-      <li>We are securing <strong> fantastic prizes</strong>, including:</li>
-        <li>Dan McInerney’s Store Voucher.</li>
-        <li>Petstop Ennis Store Voucher.</li>
-        <li>Banner Equestrian Hamper.</li>
+      <li>We are securing <strong>fantastic prizes</strong>, including:</li>
+      <li>Dan McInerney’s Store Voucher.</li>
+      <li>Petstop Ennis Store Voucher.</li>
+      <li>Banner Equestrian Hamper.</li>
       <li>All buyers are entered into the prize draw.</li>
     </ul>
   </div>
@@ -351,7 +342,7 @@
     <ol>
       <li>Click any available square below.</li>
       <li>Enter your name and contact details.</li>
-      <li>click on payment link.</li>
+      <li>Click on payment link.</li>
       <li>Your square will be marked as SOLD.</li>
     </ol>
   </div>
@@ -359,7 +350,6 @@
   <div class="panel">
     <div class="stats" id="stats">0 sold •</div>
 
-    <!-- ZOOM SLIDER -->
     <div class="zoom-control">
       <label>Zoom:</label>
       <input type="range" id="zoomSlider" min="50" max="150" value="100">
@@ -385,27 +375,31 @@
   <div class="modal-card">
     <h3 id="modalTitle">Buy Square</h3>
     <div id="squareInfo"></div>
+
     <label>Buyer name
       <input id="buyerName" type="text" placeholder="Full name" />
     </label>
+
     <label>Contact (phone or email)
       <input id="buyerContact" type="text" placeholder="Phone or email" />
     </label>
+
     <div class="btn-row" style="justify-content:flex-end;margin-top:12px;">
       <div style="margin-top:12px;">
-  <a id="paymentLink" 
-     href="https://pay.sumup.com/b2c/Q445J2E4" 
-     target="_blank"
-     style="color:#1e90ff; font-weight:bold; text-decoration:underline;">
-     Click here to pay €10
-  </a>
-  <div id="paymentConfirm" style="margin-top:8px;">
-    <label>
-      <input type="checkbox" id="paymentDone">
-      I have completed the payment
-    </label>
-  </div>
-</div>
+        <a id="paymentLink" 
+           href="#" 
+           target="_blank"
+           style="color:#1e90ff; font-weight:bold; text-decoration:underline;">
+           Click here to pay €10
+        </a>
+
+        <div id="paymentConfirm" style="margin-top:8px;">
+          <label>
+            <input type="checkbox" id="paymentDone">
+            I have completed the payment
+          </label>
+        </div>
+      </div>
 
       <button id="saveBtn">Save</button>
       <button id="cancelBtn" class="secondary">Cancel</button>
@@ -492,8 +486,9 @@ const squareInfo = document.getElementById('squareInfo');
 const buyerName = document.getElementById('buyerName');
 const buyerContact = document.getElementById('buyerContact');
 const saveBtn = document.getElementById('saveBtn');
-  saveBtn.disabled = true;
-  const paymentDone = document.getElementById('paymentDone');
+saveBtn.disabled = true;
+
+const paymentDone = document.getElementById('paymentDone');
 paymentDone.addEventListener('change', () => {
   saveBtn.disabled = !paymentDone.checked;
 });
@@ -525,10 +520,10 @@ function updateStats() {
 }
 
 let activeIndex = null;
+
 function onSquareClick(index) {
   const data = squares[index];
 
-  // If square is sold, block editing
   if (data && !data.adminKey) {
     alert(`Square ${index + 1} is already sold to ${data.name}.`);
     return;
@@ -540,16 +535,55 @@ function onSquareClick(index) {
   buyerName.value = data ? data.name : '';
   buyerContact.value = data ? data.contact : '';
   paymentDone.checked = false;
-saveBtn.disabled = true;
+  saveBtn.disabled = true;
+
   modal.classList.add('open');
 }
+/* ============================
+   PAYMENT + TOKEN + REDIRECT
+   ============================ */
 
-/* SAVE BUYER */
+function generateToken() {
+  return Math.random().toString(36).substring(2, 12);
+}
+
+function buildPaymentLink(token) {
+  const redirect = encodeURIComponent(
+    "https://hanrahananthony97-dev.github.io/grace-fundraiser/?paid=" + token
+  );
+
+  return (
+    "https://pay.sumup.com/b2c/Q445J2E4" +
+    "?token=" + token +
+    "&redirect_url=" + redirect
+  );
+}
+
+/* Detect redirect return */
+const urlParams = new URLSearchParams(window.location.search);
+const paidToken = urlParams.get("paid");
+
+if (paidToken) {
+  // Auto‑unlock save button if token returned
+  const paymentDoneBox = document.getElementById("paymentDone");
+  if (paymentDoneBox) {
+    paymentDoneBox.checked = true;
+  }
+  const saveBtn = document.getElementById("saveBtn");
+  if (saveBtn) {
+    saveBtn.disabled = false;
+  }
+}
+
+/* ============================
+   SAVE BUYER
+   ============================ */
+
 saveBtn.addEventListener('click', () => {
   if (!paymentDone.checked) {
-  alert("You must complete payment before saving this square.");
-  return;
-}
+    alert("You must complete payment before saving this square.");
+    return;
+  }
 
   const name = buyerName.value.trim();
   const contact = buyerContact.value.trim();
@@ -571,63 +605,88 @@ saveBtn.addEventListener('click', () => {
 
 cancelBtn.addEventListener('click', () => modal.classList.remove('open'));
 
-/* RENDER SQUARE */
+/* ============================
+   RENDER SQUARE
+   ============================ */
+
 function renderSquare(i) {
   const el = gridContainer.querySelector(`.square[data-index="${i}"]`);
   const data = squares[i];
   const nameEl = el.querySelector('.name');
 
-  // A square is sold ONLY if it has a buyer name
   const isSold = data && data.name && data.name.trim() !== "";
 
   if (isSold) {
     el.classList.add('sold');
-    nameEl.textContent = "";   // hide name
+    nameEl.textContent = "";
   } else {
     el.classList.remove('sold');
     nameEl.textContent = "";
   }
 }
 
+/* ============================
+   LIVE FIREBASE SYNC
+   ============================ */
 
-
-/* LIVE FIREBASE SYNC */
 squaresRef.on('value', snapshot => {
   const val = snapshot.val() || {};
   squares = new Array(totalSquares).fill(null);
+
   Object.keys(val).forEach(key => {
     const idx = parseInt(key, 10);
     if (!isNaN(idx) && idx >= 0 && idx < totalSquares) {
       squares[idx] = val[key];
     }
   });
+
   for (let i = 0; i < totalSquares; i++) renderSquare(i);
   updateStats();
 });
 
-/* EXPORT CSV */
+/* ============================
+   EXPORT CSV
+   ============================ */
+
 exportBtn.addEventListener('click', () => {
   const rows = [['Square', 'Buyer', 'Contact']];
   squares.forEach((s, idx) => { if (s) rows.push([idx + 1, s.name, s.contact]); });
-  if (rows.length === 1) { alert('No sales yet'); return; }
+
+  if (rows.length === 1) {
+    alert('No sales yet');
+    return;
+  }
+
   const csv = rows.map(r => r.join(',')).join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
+
   const a = document.createElement('a');
   a.href = url;
   a.download = 'clare_pony_club_buyers.csv';
   a.click();
+
   URL.revokeObjectURL(url);
 });
 
-/* PICK RANDOM WINNER */
+/* ============================
+   PICK RANDOM WINNER
+   ============================ */
+
 pickBtn.addEventListener('click', () => {
   const soldIndexes = squares.map((s, i) => s ? i : -1).filter(i => i >= 0);
-  if (soldIndexes.length === 0) { alert('No sold squares'); return; }
+
+  if (soldIndexes.length === 0) {
+    alert('No sold squares');
+    return;
+  }
+
   const winnerIndex = soldIndexes[Math.floor(Math.random() * soldIndexes.length)];
   const data = squares[winnerIndex];
+
   winnerText.innerHTML =
     `Square <strong>${winnerIndex + 1}</strong><br>${data.name}<br>${data.contact}`;
+
   winnerModal.classList.add('open');
 });
 
@@ -639,10 +698,7 @@ closeWinner.addEventListener('click', () => winnerModal.classList.remove('open')
 
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-
     const pwd = prompt("Enter admin password:");
-
-    // Change this to whatever password you want
     const correctPassword = "Grace2025";
 
     if (pwd === correctPassword) {
@@ -652,7 +708,6 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
-
 
 const adminPanel = document.getElementById('adminPanel');
 const adminSquare = document.getElementById('adminSquare');
@@ -699,7 +754,6 @@ adminReset.addEventListener('click', () => {
   alert("Grid reset complete");
 });
 
-
 /* ============================
    ZOOM SLIDER
    ============================ */
@@ -711,5 +765,6 @@ zoomSlider.addEventListener('input', () => {
 
 updateStats();
 </script>
+
 </body>
 </html>
