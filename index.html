@@ -223,7 +223,6 @@
     border-color: #cc0000;
     position: relative;
     cursor: not-allowed;
-    opacity: 1;
   }
 
   .square.sold::after {
@@ -369,8 +368,7 @@
   </div>
 
 </div>
-
-<!-- Buyer Modal -->
+  <!-- Buyer Modal -->
 <div id="modal" class="modal">
   <div class="modal-card">
     <h3 id="modalTitle">Buy Square</h3>
@@ -545,8 +543,6 @@ function onSquareClick(index) {
   saveBtn.disabled = true;
 
   /* GENERATE TOKEN + PAYMENT LINK */
-  const token = generate
-    /* GENERATE TOKEN + PAYMENT LINK */
   const token = generateToken();
   const link = buildPaymentLink(token);
 
@@ -560,7 +556,6 @@ function onSquareClick(index) {
 
   modal.classList.add('open');
 }
-
 /* ============================
    PAYMENT + TOKEN + REDIRECT
    ============================ */
@@ -791,3 +786,4 @@ updateStats();
 
 </body>
 </html>
+
