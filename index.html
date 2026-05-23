@@ -744,12 +744,18 @@ saveBtn.addEventListener('click', () => {
     return;
   }
 
-  // Store temporarily for auto-save after redirect
-  sessionStorage.setItem("pendingName", name);
-  sessionStorage.setItem("pendingContact", contact);
+  if (!paymentDone.checked) {
+    alert("Please tick the box to confirm payment.");
+    return;
+  }
 
-  alert("After completing payment, you will return here automatically.");
+  // Save directly to Firebase (no sessionStorage needed)
+  squaresRef.child(String(activeIndex)).set({ name, contact });
+
+  alert("Thank you! Your square has been saved.");
+  modal.classList.remove('open');
 });
+
 
 /* -------------------------------------------------------
    CANCEL MODAL
