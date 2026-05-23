@@ -15,22 +15,43 @@
     --available-color:#fff;
     --border:#ccc;
     --accent:var(--deep-blue);
+    --bg:#f7f7f7;
+    --text:#222;
+    --panel-bg:#fff;
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    :root{
+      --bg:#101218;
+      --text:#f5f5f5;
+      --panel-bg:#181b22;
+      --border:#333;
+      --sold-color:#442222;
+      --available-color:#20232b;
+    }
+  }
+
+  *{
+    box-sizing:border-box;
   }
 
   body{
     font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
     margin:0;
-    background:#f7f7f7;
-    color:#222;
+    background:var(--bg);
+    color:var(--text);
   }
 
   header{
     background:url("grace%20teth.jpg") center/cover no-repeat;
     color:#fff;
-    padding:50px 12px;
+    padding:50px 12px 40px;
     text-align:center;
     border-bottom:8px solid var(--saffron);
-    position:relative;
+    position:sticky;
+    top:0;
+    z-index:50;
   }
 
   header::before{
@@ -56,181 +77,195 @@
 
   .container{
     max-width:1100px;
-    margin:20px auto;
+    margin:20px auto 80px;
     padding:0 16px;
   }
 
   .panel{
-    background:#fff;
+    background:var(--panel-bg);
     padding:16px;
     border-radius:8px;
     margin-bottom:20px;
-    border:1px solid #ddd;
+    border:1px solid var(--border);
   }
 
   /* FUNDRAISER BANNER */
   .fundraiser-banner {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    background: linear-gradient(135deg, #d0e8ff, #f0f8ff);
-    border: 3px solid #1e90ff;
-    border-radius: 12px;
-    margin: 20px 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:20px;
+    background:linear-gradient(135deg,#d0e8ff,#f0f8ff);
+    border:3px solid #1e90ff;
+    border-radius:12px;
+    margin:20px 0;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .fundraiser-banner{
+      background:linear-gradient(135deg,#1b2a3a,#111827);
+      border-color:#60a5fa;
+    }
   }
 
   .fundraiser-photo-frame {
-    width: 160px;
-    height: 160px;
-    border: 4px solid #1e90ff;
-    border-radius: 10px;
-    overflow: hidden;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width:160px;
+    height:160px;
+    border:4px solid #1e90ff;
+    border-radius:10px;
+    overflow:hidden;
+    background:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
   }
 
   .fundraiser-photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width:100%;
+    height:100%;
+    object-fit:cover;
   }
 
   .fundraiser-text {
-    flex: 1;
+    flex:1;
   }
 
   .fundraiser-text h2 {
-    margin: 0 0 10px;
-    font-size: 28px;
-    color: #1e90ff;
-    font-weight: bold;
+    margin:0 0 10px;
+    font-size:28px;
+    color:#1e90ff;
+    font-weight:bold;
   }
 
   .fundraiser-text p {
-    margin: 6px 0;
-    font-size: 16px;
-    line-height: 1.4;
+    margin:6px 0;
+    font-size:16px;
+    line-height:1.4;
   }
 
   /* GRID PANEL */
   #gridContainer {
-    display: grid;
-    gap: 4px;
-    padding: 10px;
-    background: #f5faff;
-    border: 2px solid #1e90ff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transform-origin: top left;
-    transition: transform 0.2s ease;
+    display:grid;
+    gap:4px;
+    padding:10px;
+    background:#f5faff;
+    border:2px solid #1e90ff;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    transform-origin:top left;
+    transition:transform 0.2s ease;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    #gridContainer{
+      background:#020617;
+      border-color:#60a5fa;
+    }
   }
 
   /* LEGEND */
   .legend {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 12px;
-    align-items: center;
-    font-size: 15px;
+    display:flex;
+    gap:20px;
+    margin-bottom:12px;
+    align-items:center;
+    font-size:15px;
   }
 
   .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    display:flex;
+    align-items:center;
+    gap:6px;
   }
 
   .legend-box {
-    width: 22px;
-    height: 22px;
-    border-radius: 4px;
-    border: 2px solid #1e90ff;
+    width:22px;
+    height:22px;
+    border-radius:4px;
+    border:2px solid #1e90ff;
   }
 
   .legend-box.available {
-    background: white;
+    background:white;
   }
 
   .legend-box.sold {
-    background: #ffdddd;
-    border-color: #cc0000;
-    position: relative;
+    background:#ffdddd;
+    border-color:#cc0000;
+    position:relative;
   }
 
   .legend-box.sold::after {
-    content: "✖";
-    position: absolute;
-    font-size: 18px;
-    color: #cc0000;
-    font-weight: bold;
-    left: 3px;
-    top: -2px;
+    content:"✖";
+    position:absolute;
+    font-size:18px;
+    color:#cc0000;
+    font-weight:bold;
+    left:3px;
+    top:-2px;
   }
 
   /* ZOOM SLIDER */
   .zoom-control {
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 16px;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:16px;
   }
 
   #zoomSlider {
-    width: 200px;
+    width:200px;
   }
 
   /* SQUARES */
   .square {
-    width: 55px;
-    height: 55px;
-    background: white;
-    border: 2px solid #cfe3ff;
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: 0.2s ease;
-    font-family: Arial, sans-serif;
+    width:55px;
+    height:55px;
+    background:white;
+    border:2px solid #cfe3ff;
+    border-radius:6px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    transition:0.2s ease;
+    font-family:Arial,sans-serif;
   }
 
   .square .num {
-    font-size: 14px;
-    font-weight: bold;
-    color: #1e90ff;
+    font-size:14px;
+    font-weight:bold;
+    color:#1e90ff;
   }
 
   .square .name {
-    font-size: 11px;
-    color: #333;
-    margin-top: 2px;
+    font-size:11px;
+    color:#333;
+    margin-top:2px;
   }
 
   .square:hover {
-    transform: scale(1.08);
-    border-color: #1e90ff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transform:scale(1.08);
+    border-color:#1e90ff;
+    box-shadow:0 2px 6px rgba(0,0,0,0.15);
   }
 
   .square.sold {
-    background: #ffdddd;
-    border-color: #cc0000;
-    position: relative;
-    cursor: not-allowed;
+    background:#ffdddd;
+    border-color:#cc0000;
+    position:relative;
+    cursor:not-allowed;
   }
 
   .square.sold::after {
-    content: "✖";
-    position: absolute;
-    font-size: 32px;
-    color: #cc0000;
-    font-weight: bold;
+    content:"✖";
+    position:absolute;
+    font-size:32px;
+    color:#cc0000;
+    font-weight:bold;
   }
 
   .stats{
@@ -273,7 +308,7 @@
   .modal.open{display:flex;}
 
   .modal-card{
-    background:#fff;
+    background:var(--panel-bg);
     padding:18px;
     border-radius:8px;
     width:320px;
@@ -282,6 +317,131 @@
 
   #adminPanel .modal-card{
     width:360px;
+  }
+
+  /* Floating Buy button (mobile) */
+  .floating-buy-btn{
+    position:fixed;
+    right:16px;
+    bottom:16px;
+    z-index:60;
+    background:#1e90ff;
+    color:#fff;
+    border:none;
+    border-radius:999px;
+    padding:12px 18px;
+    font-size:0.95rem;
+    box-shadow:0 4px 10px rgba(0,0,0,0.25);
+    display:none;
+  }
+
+  .floating-buy-btn span{
+    font-size:1.1rem;
+    margin-right:6px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .floating-buy-btn{
+      background:#2563eb;
+    }
+  }
+
+  /* MOBILE OPTIMISATION (Option B) */
+  @media (max-width: 768px) {
+
+    .fundraiser-banner {
+      flex-direction:column;
+      text-align:center;
+      padding:16px;
+    }
+
+    .fundraiser-photo-frame {
+      width:130px;
+      height:130px;
+    }
+
+    .fundraiser-text h2 {
+      font-size:22px;
+    }
+
+    .fundraiser-text p {
+      font-size:15px;
+    }
+
+    #gridContainer {
+      overflow-x:auto;
+      overflow-y:visible;
+      display:inline-grid;
+      padding:6px;
+      border-width:1px;
+      transform:none !important;
+      max-width:100%;
+    }
+
+    .square {
+      width:50px;
+      height:50px;
+    }
+
+    .square .num {
+      font-size:13px;
+    }
+
+    .zoom-control {
+      gap:6px;
+    }
+
+    #zoomSlider {
+      width:100%;
+      height:28px;
+    }
+
+    .modal-card {
+      width:92%;
+      max-width:none;
+      border-radius:10px;
+    }
+
+    button {
+      width:100%;
+      padding:14px;
+      font-size:1rem;
+    }
+
+    .btn-row {
+      flex-direction:column;
+      gap:12px;
+    }
+
+    input {
+      font-size:1rem;
+      padding:10px;
+    }
+
+    .floating-buy-btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .square {
+      width:46px;
+      height:46px;
+    }
+
+    .square .num {
+      font-size:12px;
+    }
+
+    .fundraiser-text h2 {
+      font-size:20px;
+    }
+
+    .fundraiser-text p {
+      font-size:14px;
+    }
   }
 </style>
 </head>
@@ -296,7 +456,6 @@
 
 <div class="container">
 
-  <!-- FUNDRAISER BANNER -->
   <div class="fundraiser-banner">
     <div class="fundraiser-photo-frame">
       <img src="grace-photo.jpg" alt="Grace Murphy">
@@ -315,7 +474,6 @@
     </div>
   </div>
 
-  <!-- LEGEND -->
   <div class="legend">
     <div class="legend-item">
       <div class="legend-box available"></div> Available
@@ -368,7 +526,11 @@
   </div>
 
 </div>
-  <!-- Buyer Modal -->
+
+<button class="floating-buy-btn" id="floatingBuyBtn">
+  <span>⬛</span> Buy a square
+</button>
+
 <div id="modal" class="modal">
   <div class="modal-card">
     <h3 id="modalTitle">Buy Square</h3>
@@ -405,7 +567,6 @@
   </div>
 </div>
 
-<!-- Winner Modal -->
 <div id="winnerModal" class="modal">
   <div class="modal-card" style="text-align:center;">
     <h2>Winner</h2>
@@ -414,7 +575,6 @@
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
 <div id="adminPanel" class="modal">
   <div class="modal-card">
     <h2>Admin Panel</h2>
@@ -441,15 +601,10 @@
   </div>
 </div>
 
-<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <script>
-/* ============================
-   FIREBASE INITIALIZATION
-   ============================ */
-
 const firebaseConfig = {
   apiKey: "AIzaSyA5ArKd4tYSDVPcq3tXifvi8VTBxMn_Oo0",
   authDomain: "horse-path.firebaseapp.com",
@@ -461,18 +616,12 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-  
 const db = firebase.database();
 const squaresRef = db.ref("horsePathLottery/squares");
-
-/* ============================
-   GRID + UI LOGIC
-   ============================ */
 
 const GRID_ROWS = 10;
 const GRID_COLS = 25;
 const TICKET_PRICE = 10;
-
 const totalSquares = GRID_ROWS * GRID_COLS;
 let squares = new Array(totalSquares).fill(null);
 
@@ -484,13 +633,7 @@ const squareInfo = document.getElementById('squareInfo');
 const buyerName = document.getElementById('buyerName');
 const buyerContact = document.getElementById('buyerContact');
 const saveBtn = document.getElementById('saveBtn');
-saveBtn.disabled = true;
-
 const paymentDone = document.getElementById('paymentDone');
-paymentDone.addEventListener('change', () => {
-  saveBtn.disabled = !paymentDone.checked;
-});
-
 const cancelBtn = document.getElementById('cancelBtn');
 const exportBtn = document.getElementById('exportBtn');
 const pickBtn = document.getElementById('pickBtn');
@@ -498,10 +641,10 @@ const winnerModal = document.getElementById('winnerModal');
 const winnerText = document.getElementById('winnerText');
 const closeWinner = document.getElementById('closeWinner');
 const zoomSlider = document.getElementById('zoomSlider');
+const floatingBuyBtn = document.getElementById('floatingBuyBtn');
 
 gridContainer.style.gridTemplateColumns = `repeat(${GRID_COLS}, auto)`;
 
-/* Build grid */
 for (let i = 0; i < totalSquares; i++) {
   const el = document.createElement('div');
   el.className = 'square';
@@ -514,13 +657,16 @@ for (let i = 0; i < totalSquares; i++) {
 function updateStats() {
   const sold = squares.filter(s => s && s.name).length;
   const revenue = sold * TICKET_PRICE;
-  statsEl.textContent = `${sold} sold • `;
+  statsEl.textContent = `${sold} sold • €${revenue} raised`;
 }
 
 let activeIndex = null;
-
-/* NEW FLAG FOR OPTION D */
 let paymentLinkClicked = false;
+
+paymentDone.addEventListener('change', () => {
+  saveBtn.disabled = !paymentDone.checked;
+});
+saveBtn.disabled = true;
 
 function onSquareClick(index) {
   const data = squares[index];
@@ -531,9 +677,12 @@ function onSquareClick(index) {
   }
 
   activeIndex = index;
-
-  /* RESET FLAG EACH TIME MODAL OPENS */
   paymentLinkClicked = false;
+
+  const el = gridContainer.querySelector(`.square[data-index="${index}"]`);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+  }
 
   modalTitle.textContent = data ? `Square ${index + 1} — Owned` : `Square ${index + 1} — Available`;
   squareInfo.innerHTML = data ? `<small>Current owner: ${data.name} • ${data.contact}</small>` : '';
@@ -542,23 +691,17 @@ function onSquareClick(index) {
   paymentDone.checked = false;
   saveBtn.disabled = true;
 
-  /* GENERATE TOKEN + PAYMENT LINK */
   const token = generateToken();
   const link = buildPaymentLink(token);
 
   const paymentLink = document.getElementById("paymentLink");
   paymentLink.href = link;
-
-  /* DETECT PAYMENT LINK CLICK (Option D) */
-  paymentLink.addEventListener("click", () => {
+  paymentLink.onclick = () => {
     paymentLinkClicked = true;
-  });
+  };
 
   modal.classList.add('open');
 }
-/* ============================
-   PAYMENT + TOKEN + REDIRECT
-   ============================ */
 
 function generateToken() {
   return Math.random().toString(36).substring(2, 12);
@@ -576,21 +719,14 @@ function buildPaymentLink(token) {
   );
 }
 
-/* Detect redirect return */
 const urlParams = new URLSearchParams(window.location.search);
 const paidToken = urlParams.get("paid");
 
 if (paidToken) {
   const paymentDoneBox = document.getElementById("paymentDone");
   if (paymentDoneBox) paymentDoneBox.checked = true;
-
-  const saveBtn = document.getElementById("saveBtn");
   if (saveBtn) saveBtn.disabled = false;
 }
-
-/* ============================
-   SAVE BUYER (Option D enforced)
-   ============================ */
 
 saveBtn.addEventListener('click', () => {
   if (!paymentLinkClicked) {
@@ -623,15 +759,10 @@ saveBtn.addEventListener('click', () => {
 
 cancelBtn.addEventListener('click', () => modal.classList.remove('open'));
 
-/* ============================
-   RENDER SQUARE
-   ============================ */
-
 function renderSquare(i) {
   const el = gridContainer.querySelector(`.square[data-index="${i}"]`);
   const data = squares[i];
   const nameEl = el.querySelector('.name');
-
   const isSold = data && data.name && data.name.trim() !== "";
 
   if (isSold) {
@@ -642,10 +773,6 @@ function renderSquare(i) {
     nameEl.textContent = "";
   }
 }
-
-/* ============================
-   LIVE FIREBASE SYNC
-   ============================ */
 
 squaresRef.on('value', snapshot => {
   const val = snapshot.val() || {};
@@ -661,10 +788,6 @@ squaresRef.on('value', snapshot => {
   for (let i = 0; i < totalSquares; i++) renderSquare(i);
   updateStats();
 });
-
-/* ============================
-   EXPORT CSV
-   ============================ */
 
 exportBtn.addEventListener('click', () => {
   const rows = [['Square', 'Buyer', 'Contact']];
@@ -687,10 +810,6 @@ exportBtn.addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
-/* ============================
-   PICK RANDOM WINNER
-   ============================ */
-
 pickBtn.addEventListener('click', () => {
   const soldIndexes = squares.map((s, i) => s ? i : -1).filter(i => i >= 0);
 
@@ -709,10 +828,6 @@ pickBtn.addEventListener('click', () => {
 });
 
 closeWinner.addEventListener('click', () => winnerModal.classList.remove('open'));
-
-/* ============================
-   ADMIN PANEL
-   ============================ */
 
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.shiftKey && e.key === 'A') {
@@ -772,13 +887,13 @@ adminReset.addEventListener('click', () => {
   alert("Grid reset complete");
 });
 
-/* ============================
-   ZOOM SLIDER
-   ============================ */
-
 zoomSlider.addEventListener('input', () => {
   const scale = zoomSlider.value / 100;
   gridContainer.style.transform = `scale(${scale})`;
+});
+
+floatingBuyBtn.addEventListener('click', () => {
+  gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
 updateStats();
@@ -786,4 +901,3 @@ updateStats();
 
 </body>
 </html>
-
