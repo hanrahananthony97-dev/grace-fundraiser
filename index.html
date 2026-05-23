@@ -391,6 +391,10 @@
            target="_blank"
            style="color:#1e90ff; font-weight:bold; text-decoration:underline;">
            Click here to pay €10
+          document.getElementById("paymentLink").addEventListener("click", () => {
+  paymentLinkClicked = true;
+});
+
         </a>
 
         <div id="paymentConfirm" style="margin-top:8px;">
@@ -466,7 +470,7 @@ firebase.initializeApp(firebaseConfig);
   
 const db = firebase.database();
 const squaresRef = db.ref("horsePathLottery/squares");
-
+let paymentLinkClicked = false;
 /* ============================
    GRID + UI LOGIC
    ============================ */
@@ -523,6 +527,7 @@ let activeIndex = null;
 
 function onSquareClick(index) {
   const data = squares[index];
+paymentLinkClicked = false;
 
   if (data && !data.adminKey) {
     alert(`Square ${index + 1} is already sold to ${data.name}.`);
@@ -570,8 +575,13 @@ function buildPaymentLink(token) {
    ============================ */
 
 saveBtn.addEventListener('click', () => {
+  if (!paymentLinkClicked) {
+    alert("Please click the payment link before saving your square.");
+    return;
+  }
+
   if (!paymentDone.checked) {
-    alert("You must complete payment before saving this square.");
+    alert("You must confirm that you completed the payment.");
     return;
   }
 
@@ -592,6 +602,7 @@ saveBtn.addEventListener('click', () => {
   squaresRef.child(String(activeIndex)).set(entry);
   modal.classList.remove('open');
 });
+
 
 cancelBtn.addEventListener('click', () => modal.classList.remove('open'));
 
