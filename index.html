@@ -20,7 +20,6 @@
     --panel-bg:#fff;
   }
 
-  /* Dark mode support */
   @media (prefers-color-scheme: dark) {
     :root{
       --bg:#101218;
@@ -32,9 +31,7 @@
     }
   }
 
-  *{
-    box-sizing:border-box;
-  }
+  *{ box-sizing:border-box; }
 
   body{
     font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
@@ -89,7 +86,6 @@
     border:1px solid var(--border);
   }
 
-  /* FUNDRAISER BANNER */
   .fundraiser-banner {
     display:flex;
     align-items:center;
@@ -127,9 +123,7 @@
     object-fit:cover;
   }
 
-  .fundraiser-text {
-    flex:1;
-  }
+  .fundraiser-text { flex:1; }
 
   .fundraiser-text h2 {
     margin:0 0 10px;
@@ -144,7 +138,6 @@
     line-height:1.4;
   }
 
-  /* GRID PANEL */
   #gridContainer {
     display:grid;
     gap:4px;
@@ -164,7 +157,6 @@
     }
   }
 
-  /* LEGEND */
   .legend {
     display:flex;
     gap:20px;
@@ -186,9 +178,7 @@
     border:2px solid #1e90ff;
   }
 
-  .legend-box.available {
-    background:white;
-  }
+  .legend-box.available { background:white; }
 
   .legend-box.sold {
     background:#ffdddd;
@@ -206,7 +196,6 @@
     top:-2px;
   }
 
-  /* ZOOM SLIDER */
   .zoom-control {
     margin-bottom:12px;
     display:flex;
@@ -215,11 +204,8 @@
     font-size:16px;
   }
 
-  #zoomSlider {
-    width:200px;
-  }
+  #zoomSlider { width:200px; }
 
-  /* SQUARES */
   .square {
     width:55px;
     height:55px;
@@ -284,9 +270,7 @@
     font-size:0.9rem;
   }
 
-  button.secondary{
-    background:#666;
-  }
+  button.secondary{ background:#666; }
 
   .btn-row{
     display:flex;
@@ -305,7 +289,7 @@
     z-index:1000;
   }
 
-  .modal.open{display:flex;}
+  .modal.open{ display:flex; }
 
   .modal-card{
     background:var(--panel-bg);
@@ -315,11 +299,8 @@
     max-width:92%;
   }
 
-  #adminPanel .modal-card{
-    width:360px;
-  }
+  #adminPanel .modal-card{ width:360px; }
 
-  /* Floating Buy button (mobile) */
   .floating-buy-btn{
     position:fixed;
     right:16px;
@@ -341,14 +322,10 @@
   }
 
   @media (prefers-color-scheme: dark) {
-    .floating-buy-btn{
-      background:#2563eb;
-    }
+    .floating-buy-btn{ background:#2563eb; }
   }
 
-  /* MOBILE OPTIMISATION (Option B) */
   @media (max-width: 768px) {
-
     .fundraiser-banner {
       flex-direction:column;
       text-align:center;
@@ -360,13 +337,8 @@
       height:130px;
     }
 
-    .fundraiser-text h2 {
-      font-size:22px;
-    }
-
-    .fundraiser-text p {
-      font-size:15px;
-    }
+    .fundraiser-text h2 { font-size:22px; }
+    .fundraiser-text p { font-size:15px; }
 
     #gridContainer {
       overflow-x:auto;
@@ -383,13 +355,9 @@
       height:50px;
     }
 
-    .square .num {
-      font-size:13px;
-    }
+    .square .num { font-size:13px; }
 
-    .zoom-control {
-      gap:6px;
-    }
+    .zoom-control { gap:6px; }
 
     #zoomSlider {
       width:100%;
@@ -431,182 +399,22 @@
       height:46px;
     }
 
-    .square .num {
-      font-size:12px;
-    }
+    .square .num { font-size:12px; }
 
-    .fundraiser-text h2 {
-      font-size:20px;
-    }
-
-    .fundraiser-text p {
-      font-size:14px;
-    }
+    .fundraiser-text h2 { font-size:20px; }
+    .fundraiser-text p { font-size:14px; }
   }
 </style>
 </head>
 
 <body>
-
-<header>
-  <img src="logo.png" alt="Clare Pony Club Logo" />
-  <h1>Clare Pony Club</h1>
-  <h2>Horse Path Lottery – Supporting Grace Murphy’s Australian Exchange</h2>
-</header>
-
-<div class="container">
-
-  <div class="fundraiser-banner">
-    <div class="fundraiser-photo-frame">
-      <img src="grace-photo.jpg" alt="Grace Murphy">
-    </div>
-
-    <div class="fundraiser-text">
-      <h2>Support Grace</h2>
-      <p>
-        We are raising funds to support <strong>Grace Murphy</strong> as she represents our club as part of the 
-        <strong>Irish Pony Club Tetrathlon Squad</strong> in the prestigious 
-        <strong>Irish Squad Exchange to Australia</strong>.
-      </p>
-      <p>
-        Thank you for supporting <strong>Clare Pony Club</strong> and helping make this opportunity possible.
-      </p>
-    </div>
-  </div>
-
-  <div class="legend">
-    <div class="legend-item">
-      <div class="legend-box available"></div> Available
-    </div>
-    <div class="legend-item">
-      <div class="legend-box sold"></div> Sold
-    </div>
-  </div>
-
-  <div class="panel">
-  <h2>Prizes</h2>
-  <ul>
-    <li>We are securing <strong>fantastic prizes</strong>, including:</li>
-    <li>Dan McInerney’s Store Voucher.</li>
-    <li>Petstop Ennis Store Voucher.</li>
-    <li>Banner Equestrian Hamper.</li>
-    <li>All buyers are entered into the prize draw.</li>
-    <li><strong>The draw will take place on Tuesday June 9th.</strong></li>
-  </ul>
-</div>
-
-
-  <div class="panel">
-    <h2>How to Buy a Square</h2>
-    <ol>
-      <li>Click any available square below.</li>
-      <li>Enter your name and contact details.</li>
-      <li>Click on payment link.</li>
-      <li>Your square will be marked as SOLD.</li>
-    </ol>
-  </div>
-
-  <div class="panel">
-    <div class="stats" id="stats">0 sold •</div>
-
-    <div class="zoom-control">
-      <label>Zoom:</label>
-      <input type="range" id="zoomSlider" min="50" max="150" value="100">
-    </div>
-
-    <div id="gridContainer" class="grid-wrap"></div>
-  </div>
-
-  <div class="panel">
-    <h2>Terms & Conditions</h2>
-    <ul>
-      <li>All proceeds go to Clare Pony Club to support Grace Murphy’s exchange programme.</li>
-      <li>Buyers must provide valid contact details.</li>
-      <li>Winners will be contacted directly after the draw.</li>
-      <li>Squares are non‑refundable once purchased.</li>
-    </ul>
-  </div>
-
-</div>
-
-<button class="floating-buy-btn" id="floatingBuyBtn">
-  <span>⬛</span> Buy a square
-</button>
-
-<div id="modal" class="modal">
-  <div class="modal-card">
-    <h3 id="modalTitle">Buy Square</h3>
-    <div id="squareInfo"></div>
-
-    <label>Buyer name
-      <input id="buyerName" type="text" placeholder="Full name" />
-    </label>
-
-    <label>Contact (phone or email)
-      <input id="buyerContact" type="text" placeholder="Phone or email" />
-    </label>
-
-    <div class="btn-row" style="justify-content:flex-end;margin-top:12px;">
-      <div style="margin-top:12px;">
-        <a id="paymentLink" 
-           href="#" 
-           target="_blank"
-           style="color:#1e90ff; font-weight:bold; text-decoration:underline;">
-           Click here to pay €10
-        </a>
-
-        <div id="paymentConfirm" style="margin-top:8px;">
-          <label>
-            <input type="checkbox" id="paymentDone">
-            I have completed the payment
-          </label>
-        </div>
-      </div>
-
-      <button id="saveBtn">Save</button>
-      <button id="cancelBtn" class="secondary">Cancel</button>
-    </div>
-  </div>
-</div>
-
-<div id="winnerModal" class="modal">
-  <div class="modal-card" style="text-align:center;">
-    <h2>Winner</h2>
-    <div id="winnerText" style="font-size:1.1rem;margin:12px 0;"></div>
-    <button id="closeWinner">Close</button>
-  </div>
-</div>
-
-<div id="adminPanel" class="modal">
-  <div class="modal-card">
-    <h2>Admin Panel</h2>
-
-    <label>Square number (1–250)
-      <input id="adminSquare" type="number" min="1" max="250">
-    </label>
-
-    <label>New buyer name (leave blank to clear)
-      <input id="adminName" type="text">
-    </label>
-
-    <label>New contact (leave blank to clear)
-      <input id="adminContact" type="text">
-    </label>
-
-    <div class="btn-row" style="margin-top:12px;">
-      <button id="adminSave">Apply Change</button>
-      <button id="adminReset" class="secondary">Reset Entire Grid</button>
-      <button id="exportBtn">Export Buyer List (CSV)</button>
-      <button id="pickBtn" class="secondary">Pick Random Winner</button>
-      <button id="adminClose" class="secondary">Close</button>
-    </div>
-  </div>
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <script>
+/* -------------------------------------------------------
+   FIREBASE INITIALISATION
+------------------------------------------------------- */
 const firebaseConfig = {
   apiKey: "AIzaSyA5ArKd4tYSDVPcq3tXifvi8VTBxMn_Oo0",
   authDomain: "horse-path.firebaseapp.com",
@@ -621,11 +429,16 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const squaresRef = db.ref("horsePathLottery/squares");
 
+/* -------------------------------------------------------
+   CONSTANTS + ELEMENTS
+------------------------------------------------------- */
 const GRID_ROWS = 10;
 const GRID_COLS = 25;
 const TICKET_PRICE = 10;
 const totalSquares = GRID_ROWS * GRID_COLS;
+
 let squares = new Array(totalSquares).fill(null);
+let activeIndex = null;
 
 const gridContainer = document.getElementById('gridContainer');
 const statsEl = document.getElementById('stats');
@@ -645,6 +458,9 @@ const closeWinner = document.getElementById('closeWinner');
 const zoomSlider = document.getElementById('zoomSlider');
 const floatingBuyBtn = document.getElementById('floatingBuyBtn');
 
+/* -------------------------------------------------------
+   GRID SETUP
+------------------------------------------------------- */
 gridContainer.style.gridTemplateColumns = `repeat(${GRID_COLS}, auto)`;
 
 for (let i = 0; i < totalSquares; i++) {
@@ -656,20 +472,18 @@ for (let i = 0; i < totalSquares; i++) {
   gridContainer.appendChild(el);
 }
 
+/* -------------------------------------------------------
+   UPDATE STATS
+------------------------------------------------------- */
 function updateStats() {
   const sold = squares.filter(s => s && s.name).length;
   const revenue = sold * TICKET_PRICE;
   statsEl.textContent = `${sold} sold • €${revenue} raised`;
 }
 
-let activeIndex = null;
-let paymentLinkClicked = false;
-
-paymentDone.addEventListener('change', () => {
-  saveBtn.disabled = !paymentDone.checked;
-});
-saveBtn.disabled = true;
-
+/* -------------------------------------------------------
+   OPEN SQUARE MODAL
+------------------------------------------------------- */
 function onSquareClick(index) {
   const data = squares[index];
 
@@ -679,12 +493,9 @@ function onSquareClick(index) {
   }
 
   activeIndex = index;
-  paymentLinkClicked = false;
 
   const el = gridContainer.querySelector(`.square[data-index="${index}"]`);
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-  }
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
 
   modalTitle.textContent = data ? `Square ${index + 1} — Owned` : `Square ${index + 1} — Available`;
   squareInfo.innerHTML = data ? `<small>Current owner: ${data.name} • ${data.contact}</small>` : '';
@@ -694,80 +505,107 @@ function onSquareClick(index) {
   saveBtn.disabled = true;
 
   const token = generateToken();
-  const link = buildPaymentLink(token);
+  const link = buildPaymentLink(token, index);
 
   const paymentLink = document.getElementById("paymentLink");
   paymentLink.href = link;
-  paymentLink.onclick = () => {
-    paymentLinkClicked = true;
-  };
 
   modal.classList.add('open');
 }
 
+/* -------------------------------------------------------
+   TOKEN + PAYMENT LINK
+------------------------------------------------------- */
 function generateToken() {
   return Math.random().toString(36).substring(2, 12);
 }
 
-function buildPaymentLink(token) {
-  const redirect = encodeURIComponent(
-    "https://hanrahananthony97-dev.github.io/grace-fundraiser/?paid=" + token
+function buildPaymentLink(token, squareIndex) {
+  const returnUrl = encodeURIComponent(
+    `https://hanrahananthony97-dev.github.io/grace-fundraiser/?paid=${token}&sq=${squareIndex}`
   );
 
   return (
     "https://pay.sumup.com/b2c/Q445J2E4" +
     "?token=" + token +
-    "&redirect_url=" + redirect
+    "&return_url=" + returnUrl
   );
 }
 
-const urlParams = new URLSearchParams(window.location.search);
-const paidToken = urlParams.get("paid");
+/* -------------------------------------------------------
+   AUTO-SAVE AFTER PAYMENT RETURN
+------------------------------------------------------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const paid = params.get("paid");
+  const sq = params.get("sq");
 
-if (paidToken) {
-  const paymentDoneBox = document.getElementById("paymentDone");
-  if (paymentDoneBox) paymentDoneBox.checked = true;
-  if (saveBtn) saveBtn.disabled = false;
+  if (paid && sq !== null) {
+    const index = parseInt(sq, 10);
+
+    if (!isNaN(index) && index >= 0 && index < totalSquares) {
+      autoSaveSquare(index);
+    }
+
+    // Clean URL
+    window.history.replaceState({}, document.title, "/grace-fundraiser/");
+  }
+});
+
+function autoSaveSquare(index) {
+  const el = gridContainer.querySelector(`.square[data-index="${index}"]`);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  const name = sessionStorage.getItem("pendingName");
+  const contact = sessionStorage.getItem("pendingContact");
+
+  if (!name || !contact) return;
+
+  squaresRef.child(String(index)).set({ name, contact });
+
+  sessionStorage.removeItem("pendingName");
+  sessionStorage.removeItem("pendingContact");
+
+  alert("Success! Your entry is complete.");
 }
 
+/* -------------------------------------------------------
+   SAVE BUTTON
+------------------------------------------------------- */
+paymentDone.addEventListener('change', () => {
+  saveBtn.disabled = !paymentDone.checked;
+});
+
 saveBtn.addEventListener('click', () => {
-  if (!paymentLinkClicked) {
-    alert("Please click the payment link before saving your square.");
-    return;
-  }
-
-  if (!paymentDone.checked) {
-    alert("You must confirm that you completed the payment.");
-    return;
-  }
-
   const name = buyerName.value.trim();
   const contact = buyerContact.value.trim();
 
-  if (!name) {
-    alert('Please enter buyer name');
+  if (!name || !contact) {
+    alert("Please enter name and contact.");
     return;
   }
 
-  if (!contact) {
-    alert('Please enter contact details');
-    return;
-  }
+  // Store temporarily for auto-save after redirect
+  sessionStorage.setItem("pendingName", name);
+  sessionStorage.setItem("pendingContact", contact);
 
-  const entry = { name, contact };
-  squaresRef.child(String(activeIndex)).set(entry);
-  modal.classList.remove('open');
+  alert("After completing payment, you will return here automatically.");
 });
 
+/* -------------------------------------------------------
+   CANCEL MODAL
+------------------------------------------------------- */
 cancelBtn.addEventListener('click', () => modal.classList.remove('open'));
 
+/* -------------------------------------------------------
+   RENDER SQUARE
+------------------------------------------------------- */
 function renderSquare(i) {
   const el = gridContainer.querySelector(`.square[data-index="${i}"]`);
   const data = squares[i];
   const nameEl = el.querySelector('.name');
-  const isSold = data && data.name && data.name.trim() !== "";
 
-  if (isSold) {
+  if (data && data.name) {
     el.classList.add('sold');
     nameEl.textContent = "";
   } else {
@@ -776,6 +614,9 @@ function renderSquare(i) {
   }
 }
 
+/* -------------------------------------------------------
+   FIREBASE LISTENER
+------------------------------------------------------- */
 squaresRef.on('value', snapshot => {
   const val = snapshot.val() || {};
   squares = new Array(totalSquares).fill(null);
@@ -791,6 +632,9 @@ squaresRef.on('value', snapshot => {
   updateStats();
 });
 
+/* -------------------------------------------------------
+   EXPORT CSV
+------------------------------------------------------- */
 exportBtn.addEventListener('click', () => {
   const rows = [['Square', 'Buyer', 'Contact']];
   squares.forEach((s, idx) => { if (s) rows.push([idx + 1, s.name, s.contact]); });
@@ -812,6 +656,9 @@ exportBtn.addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
+/* -------------------------------------------------------
+   PICK RANDOM WINNER
+------------------------------------------------------- */
 pickBtn.addEventListener('click', () => {
   const soldIndexes = squares.map((s, i) => s ? i : -1).filter(i => i >= 0);
 
@@ -831,6 +678,9 @@ pickBtn.addEventListener('click', () => {
 
 closeWinner.addEventListener('click', () => winnerModal.classList.remove('open'));
 
+/* -------------------------------------------------------
+   ADMIN PANEL
+------------------------------------------------------- */
 document.addEventListener('keydown', (e) => {
   if (e.ctrlKey && e.shiftKey && e.key === 'A') {
     const pwd = prompt("Enter admin password:");
@@ -880,7 +730,7 @@ adminSave.addEventListener('click', () => {
 });
 
 adminReset.addEventListener('click', () => {
-  if (!confirm("Are you sure you want to reset ALL squares?")) return;
+  if (!confirm("Reset ALL squares?")) return;
 
   for (let i = 0; i < totalSquares; i++) {
     squaresRef.child(String(i)).remove();
@@ -889,6 +739,9 @@ adminReset.addEventListener('click', () => {
   alert("Grid reset complete");
 });
 
+/* -------------------------------------------------------
+   ZOOM + MOBILE BUTTON
+------------------------------------------------------- */
 zoomSlider.addEventListener('input', () => {
   const scale = zoomSlider.value / 100;
   gridContainer.style.transform = `scale(${scale})`;
@@ -903,3 +756,4 @@ updateStats();
 
 </body>
 </html>
+
