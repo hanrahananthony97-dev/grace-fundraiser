@@ -408,7 +408,164 @@
 </head>
 
 <body>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <header>
+  <img src="logo.png" alt="Clare Pony Club Logo" />
+  <h1>Clare Pony Club</h1>
+  <h2>Horse Path Lottery – Supporting Grace Murphy’s Australian Exchange</h2>
+</header>
+
+<div class="container">
+
+  <div class="fundraiser-banner">
+    <div class="fundraiser-photo-frame">
+      <img src="grace-photo.jpg" alt="Grace Murphy">
+    </div>
+
+    <div class="fundraiser-text">
+      <h2>Support Grace</h2>
+      <p>
+        We are raising funds to support <strong>Grace Murphy</strong> as she represents our club as part of the 
+        <strong>Irish Pony Club Tetrathlon Squad</strong> in the prestigious 
+        <strong>Irish Squad Exchange to Australia</strong>.
+      </p>
+      <p>
+        Thank you for supporting <strong>Clare Pony Club</strong> and helping make this opportunity possible.
+      </p>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-box available"></div> Available
+    </div>
+    <div class="legend-item">
+      <div class="legend-box sold"></div> Sold
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Prizes</h2>
+    <ul>
+      <li>We are securing <strong>fantastic prizes</strong>, including:</li>
+      <li>Dan McInerney’s Store Voucher.</li>
+      <li>Petstop Ennis Store Voucher.</li>
+      <li>Banner Equestrian Hamper.</li>
+      <li>All buyers are entered into the prize draw.</li>
+      <li><strong>The draw will take place on Tuesday June 9th.</strong></li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h2>How to Buy a Square</h2>
+    <ol>
+      <li>Click any available square below.</li>
+      <li>Enter your name and contact details.</li>
+      <li>Click on payment link.</li>
+      <li>Your square will be marked as SOLD.</li>
+    </ol>
+  </div>
+
+  <div class="panel">
+    <div class="stats" id="stats">0 sold •</div>
+
+    <div class="zoom-control">
+      <label>Zoom:</label>
+      <input type="range" id="zoomSlider" min="50" max="150" value="100">
+    </div>
+
+    <!-- ⭐ THIS IS THE CRITICAL ELEMENT THAT WAS MISSING ⭐ -->
+    <div id="gridContainer"></div>
+  </div>
+
+  <div class="panel">
+    <h2>Terms & Conditions</h2>
+    <ul>
+      <li>All proceeds go to Clare Pony Club to support Grace Murphy’s exchange programme.</li>
+      <li>Buyers must provide valid contact details.</li>
+      <li>Winners will be contacted directly after the draw.</li>
+      <li>Squares are non‑refundable once purchased.</li>
+    </ul>
+  </div>
+
+</div>
+
+<button class="floating-buy-btn" id="floatingBuyBtn">
+  <span>⬛</span> Buy a square
+</button>
+
+<!-- BUY MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-card">
+    <h3 id="modalTitle">Buy Square</h3>
+    <div id="squareInfo"></div>
+
+    <label>Buyer name
+      <input id="buyerName" type="text" placeholder="Full name" />
+    </label>
+
+    <label>Contact (phone or email)
+      <input id="buyerContact" type="text" placeholder="Phone or email" />
+    </label>
+
+    <div class="btn-row" style="justify-content:flex-end;margin-top:12px;">
+      <div style="margin-top:12px;">
+        <a id="paymentLink" 
+           href="#" 
+           target="_blank"
+           style="color:#1e90ff; font-weight:bold; text-decoration:underline;">
+           Click here to pay €10
+        </a>
+
+        <div id="paymentConfirm" style="margin-top:8px;">
+          <label>
+            <input type="checkbox" id="paymentDone">
+            I have completed the payment
+          </label>
+        </div>
+      </div>
+
+      <button id="saveBtn">Save</button>
+      <button id="cancelBtn" class="secondary">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- WINNER MODAL -->
+<div id="winnerModal" class="modal">
+  <div class="modal-card" style="text-align:center;">
+    <h2>Winner</h2>
+    <div id="winnerText" style="font-size:1.1rem;margin:12px 0;"></div>
+    <button id="closeWinner">Close</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="modal">
+  <div class="modal-card">
+    <h2>Admin Panel</h2>
+
+    <label>Square number (1–250)
+      <input id="adminSquare" type="number" min="1" max="250">
+    </label>
+
+    <label>New buyer name (leave blank to clear)
+      <input id="adminName" type="text">
+    </label>
+
+    <label>New contact (leave blank to clear)
+      <input id="adminContact" type="text">
+    </label>
+
+    <div class="btn-row" style="margin-top:12px;">
+      <button id="adminSave">Apply Change</button>
+      <button id="adminReset" class="secondary">Reset Entire Grid</button>
+      <button id="exportBtn">Export Buyer List (CSV)</button>
+      <button id="pickBtn" class="secondary">Pick Random Winner</button>
+      <button id="adminClose" class="secondary">Close</button>
+    </div>
+  </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <script>
