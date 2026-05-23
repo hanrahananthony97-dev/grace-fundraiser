@@ -391,10 +391,6 @@
            target="_blank"
            style="color:#1e90ff; font-weight:bold; text-decoration:underline;">
            Click here to pay €10
-          document.getElementById("paymentLink").addEventListener("click", () => {
-  paymentLinkClicked = true;
-});
-
         </a>
 
         <div id="paymentConfirm" style="margin-top:8px;">
@@ -470,7 +466,7 @@ firebase.initializeApp(firebaseConfig);
   
 const db = firebase.database();
 const squaresRef = db.ref("horsePathLottery/squares");
-let paymentLinkClicked = false;
+
 /* ============================
    GRID + UI LOGIC
    ============================ */
@@ -525,9 +521,11 @@ function updateStats() {
 
 let activeIndex = null;
 
+/* NEW FLAG FOR OPTION D */
+let paymentLinkClicked = false;
+
 function onSquareClick(index) {
   const data = squares[index];
-paymentLinkClicked = false;
 
   if (data && !data.adminKey) {
     alert(`Square ${index + 1} is already sold to ${data.name}.`);
@@ -536,14 +534,8 @@ paymentLinkClicked = false;
 
   activeIndex = index;
 
-  // Generate a fresh token for this purchase
-  const token = generateToken();
-
-  // Build the correct SumUp link
-  const link = buildPaymentLink(token);
-
-  // Update the payment link in the modal
-  document.getElementById("paymentLink").href = link;
+  /* RESET FLAG EACH TIME MODAL OPENS */
+  paymentLinkClicked = false;
 
   modalTitle.textContent = data ? `Square ${index + 1} — Owned` : `Square ${index + 1} — Available`;
   squareInfo.innerHTML = data ? `<small>Current owner: ${data.name} • ${data.contact}</small>` : '';
@@ -552,11 +544,25 @@ paymentLinkClicked = false;
   paymentDone.checked = false;
   saveBtn.disabled = true;
 
+  /* GENERATE TOKEN + PAYMENT LINK */
+  const token = generate
+    /* GENERATE TOKEN + PAYMENT LINK */
+  const token = generateToken();
+  const link = buildPaymentLink(token);
+
+  const paymentLink = document.getElementById("paymentLink");
+  paymentLink.href = link;
+
+  /* DETECT PAYMENT LINK CLICK (Option D) */
+  paymentLink.addEventListener("click", () => {
+    paymentLinkClicked = true;
+  });
+
   modal.classList.add('open');
 }
 
 /* ============================
-   PAYMENT (NO REDIRECT VERSION)
+   PAYMENT + TOKEN + REDIRECT
    ============================ */
 
 function generateToken() {
@@ -564,14 +570,31 @@ function generateToken() {
 }
 
 function buildPaymentLink(token) {
+  const redirect = encodeURIComponent(
+    "https://hanrahananthony97-dev.github.io/grace-fundraiser/?paid=" + token
+  );
+
   return (
     "https://pay.sumup.com/b2c/Q445J2E4" +
-    "?token=" + token
+    "?token=" + token +
+    "&redirect_url=" + redirect
   );
 }
 
+/* Detect redirect return */
+const urlParams = new URLSearchParams(window.location.search);
+const paidToken = urlParams.get("paid");
+
+if (paidToken) {
+  const paymentDoneBox = document.getElementById("paymentDone");
+  if (paymentDoneBox) paymentDoneBox.checked = true;
+
+  const saveBtn = document.getElementById("saveBtn");
+  if (saveBtn) saveBtn.disabled = false;
+}
+
 /* ============================
-   SAVE BUYER
+   SAVE BUYER (Option D enforced)
    ============================ */
 
 saveBtn.addEventListener('click', () => {
@@ -602,7 +625,6 @@ saveBtn.addEventListener('click', () => {
   squaresRef.child(String(activeIndex)).set(entry);
   modal.classList.remove('open');
 });
-
 
 cancelBtn.addEventListener('click', () => modal.classList.remove('open'));
 
